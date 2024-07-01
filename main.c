@@ -3,11 +3,6 @@
 #include <string.h>
 #include <openssl/des.h>
 
-void handleErrors(void) {
-    fprintf(stderr, "An error occurred\n");
-    exit(1);
-}
-
 // Функция для считывания ключа от пользователя длиной 8 символов
 void getKey(DES_cblock *key)
 {
