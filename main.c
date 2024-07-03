@@ -5,18 +5,25 @@
 #include "my_string.h"
 #include "blowfish_alhorithm.h"
 
+void viewHelpMenu(const char *name);
 void enteryKey( BlowfishKey *key );
 void codingDataFromFile(const char *input_filename, const char *output_filename, BlowfishKey *key, int crypto_mode);
 
 int main(int argc, char *argv[])
 {
+    if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {
+        viewHelpMenu(argv[0]);
+        return 0;
+    }
+
     if (argc != 4) {
-        fprintf(stderr, "Использование: %s <encrypt|decrypt> <input_file> <output_file>\n", argv[0]);
+        fprintf( stderr, "Неверное кол-во аргументов! Справка программы: --help.\n" );
         return 1;
     }
 
     if (strcmp(argv[1], "encrypt") != 0 && strcmp(argv[1], "decrypt") != 0) {
         fprintf(stderr, "Неправильный аргумент операции: %s. Используйте 'encrypt' или 'decrypt'.\n", argv[1]);
+        fprintf(stderr, "Справка программы: --help.\n");
         return 1;
     }
 
@@ -119,4 +126,13 @@ void enteryKey( BlowfishKey *key )
         sscanf(key_input + 2 * i, "%2hhx", &key_data[i]);
     }
     initKey(key, key_data, sizeof(key_data));
+}
+
+void viewHelpMenu(const char *name)
+{
+    printf(" Для шифрования/дешифрования используйте команду: %s <encrypt|decrypt> <input_file> <output_file>\n", name );
+    printf("    1) encrypt - зашифровать данные, decrypt - расшифровать данные\n");
+    printf("    2) input_file - файл источник исходных данных\n");
+    printf("    3) output_file - файл в который будет записан результат\n");
+    printf(" -h, --help     Показать справку\n");
 }
