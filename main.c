@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
 //own
+#include "my_string.h"
 #include "blowfish_alhorithm.h"
 
 void enteryKey( BlowfishKey *key );

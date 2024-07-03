@@ -1,7 +1,7 @@
 #include "blowfish_alhorithm.h"
+#include "my_string.h"
 //
 #include <stdlib.h>
-#include <string.h>
 
 static const uint32_t PArray[18] = {
         0x243F6A88L, 0x85A308D3L, 0x13198A2EL, 0x03707344L, 0xA4093822L,
