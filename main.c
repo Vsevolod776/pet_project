@@ -5,6 +5,29 @@
 //own
 #include "blowfish_alhorithm.h"
 
+void enteryKey( BlowfishKey *key );
+void codingDataFromFile(const char *input_filename, const char *output_filename, BlowfishKey *key, int crypto_mode);
+
+int main(int argc, char *argv[])
+{
+    if (argc != 4) {
+        fprintf(stderr, "Использование: %s <encrypt|decrypt> <input_file> <output_file>\n", argv[0]);
+        return 1;
+    }
+
+    if (strcmp(argv[1], "encrypt") != 0 && strcmp(argv[1], "decrypt") != 0) {
+        fprintf(stderr, "Неправильный аргумент операции: %s. Используйте 'encrypt' или 'decrypt'.\n", argv[1]);
+        return 1;
+    }
+
+    BlowfishKey key;
+    // = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
+    enteryKey( &key );
+    codingDataFromFile(argv[2], argv[3], &key, strcmp(argv[1], "encrypt") == 0 ? 1 : 0 );
+    printf("Операция выполнена успешно.\n");
+    return 0;
+}
+
 void handleErrors(const char *text) {
     fprintf(stderr, "%s", text);
     exit(EXIT_FAILURE);
@@ -96,24 +119,4 @@ void enteryKey( BlowfishKey *key )
         sscanf(key_input + 2 * i, "%2hhx", &key_data[i]);
     }
     initKey(key, key_data, sizeof(key_data));
-}
-
-int main(int argc, char *argv[])
-{
-    if (argc != 4) {
-        fprintf(stderr, "Использование: %s <encrypt|decrypt> <input_file> <output_file>\n", argv[0]);
-        return 1;
-    }
-
-    if (strcmp(argv[1], "encrypt") != 0 && strcmp(argv[1], "decrypt") != 0) {
-        fprintf(stderr, "Неправильный аргумент операции: %s. Используйте 'encrypt' или 'decrypt'.\n", argv[1]);
-        return 1;
-    }
-
-    BlowfishKey key;
-    // = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
-    enteryKey( &key );
-    codingDataFromFile(argv[2], argv[3], &key, strcmp(argv[1], "encrypt") == 0 ? 1 : 0 );
-    printf("Операция выполнена успешно.\n");
-    return 0;
 }
