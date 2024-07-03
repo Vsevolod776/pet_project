@@ -11,5 +11,7 @@ include_directories(${OPENSSL_INCLUDE_DIR})
 
 add_executable(pet_project_on_c main.c
         blowfish_alhorithm.h
-        blowfish_alhorithm.c)
+        blowfish_alhorithm.c
+        my_string.c
+        my_string.h)
 target_link_libraries(pet_project_on_c OpenSSL::Crypto)
